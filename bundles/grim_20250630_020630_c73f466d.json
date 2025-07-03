@@ -1,0 +1,48 @@
+{
+  "bundle_id": "grim_20250630_020630_c73f466d",
+  "timestamp": "2025-06-30T02:06:30.045412",
+  "tokens": [
+    "BONK",
+    "DRIP",
+    "RAY"
+  ],
+  "slippage": 0.5,
+  "simulate": true,
+  "actions": [
+    {
+      "type": "swap",
+      "token": "BONK",
+      "amount": "3817054",
+      "slippage": 0.5,
+      "priority": 1,
+      "estimated_gas": 10719,
+      "estimated_price_impact": 1.17
+    },
+    {
+      "type": "swap",
+      "token": "DRIP",
+      "amount": "1811363",
+      "slippage": 0.5,
+      "priority": 2,
+      "estimated_gas": 14948,
+      "estimated_price_impact": 0.33
+    },
+    {
+      "type": "swap",
+      "token": "RAY",
+      "amount": "6779942",
+      "slippage": 0.5,
+      "priority": 3,
+      "estimated_gas": 12166,
+      "estimated_price_impact": 1.88
+    }
+  ],
+  "status": "pending",
+  "total_actions": 3,
+  "total_estimated_gas": 37833,
+  "average_price_impact": 1.13,
+  "bundle_type": "token_swaps",
+  "simulation_mode": true,
+  "created_at": "2025-06-30T02:06:30.049636",
+  "version": "1.0.0"
+}

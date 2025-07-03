@@ -1,0 +1,7 @@
+typer[all]
+rich
+solana
+pyzmq
+pillow
+base58
+pycryptodome
