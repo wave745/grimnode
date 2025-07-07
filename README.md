@@ -9,14 +9,13 @@ GrimNode is a modular, on-chain automation system for degens, meme-lords, and st
 ## 🧩 Key Components
 
 ### 1. ⚙️ GrimPy CLI (`cli.py`)
-A hacker-style command-line interface built with typer and rich.
+A hacker-style command-line interface built with typer and rich. Now features a modern cfonts banner (requires Node.js and cfonts).
 
 **Commands:**
-- `scan`: Realtime scan of new token creations on Pump.fun
-- `meme`: (WIP) AI meme generation module
-- `bundle`: (WIP) Execute stealthy multi-wallet trade bundles
-- `send-job`: Dispatch encrypted jobs to local agents via ShadowNet
-- `grimcast`: (WIP) Post memes or signals to Twitter/X
+- `scan`: Realtime scan of new token creations on Pump.fun (**fully implemented**)
+- `send-job`: Dispatch encrypted jobs to local agents via ShadowNet (**fully implemented**)
+- `bundle`: Execute stealthy multi-wallet trade bundles (**fully implemented**)
+- `grimcast`: Post signals to Twitter/X (**fully implemented**)
 
 **Integrations:** Solana RPC, ZeroMQ, AES encryption, base58, Pump.fun
 
@@ -26,36 +25,43 @@ A local daemon that:
 - Decrypts job payloads
 - Processes and replies with encrypted ACKs
 
-Think of it as a local grunt node for AI-coordinated ops.
+**Status:** Fully implemented and matches the CLI's `send-job` command.
 
 ### 3. 💰 GrimVault (Anchor Smart Contract)
 A Rust-based treasury system built with Anchor on Solana.
 
 **Features:**
-- Accepts SOL-based subscriptions
-- Supports access tiers (e.g., free, pro, premium)
-- Time-based expiry, possible NFT-based tiering
+- Accepts SOL-based subscriptions (**implemented**)
+- Supports access tiers (e.g., free, pro, premium) (**implemented**)
+- Time-based expiry (**implemented**)
 - Serves as the gatekeeper for using advanced tools (like bundler/AI modules)
 
 ### 4. 🧃 GrimBundle Executor
-A dual Rust + Python system designed to:
+A dual Rust + Python + TypeScript system designed to:
 - Bundle Solana transactions across multiple wallets
-- Add randomized delays + transaction splitting to obfuscate intent
-- (Planned) integrate zk-SNARK-based proof of trade ownership
-- Supports saved bundles (JSON), simulation, and execution logic
+- Add randomized delays + transaction splitting to obfuscate intent (**planned, not yet implemented in Rust**)
+- Integrate zk-SNARK-based proof of trade ownership (**TypeScript logic present, Rust planned**)
+- Supports saved bundles (JSON), simulation, and execution logic (**Python utilities implemented, Rust logic now implemented and functional**)
+
+**Status:**
+- Rust: Executor is now implemented and functional for reading JSON, signing, and sending transactions.
+- TypeScript: zk-SNARK proof generation and bundle logic present in `grimnode-ts` (trusted setup may require a newer snarkjs version).
+- Python: Utilities for bundle management are implemented.
 
 ### 5. 🧰 Utility Modules (`utils/`)
 Contains:
-- `solana_client.py`: balance checks, supply, token info
-- `pumpportal.py`: trending token fetch from pump.fun
-- `crypto.py`: AES-based message encryption for ShadowNet
-- (WIP) Jupiter DEX aggregator integrations and wallet risk scoring
+- `solana_client.py`: balance checks, supply, token info (**implemented**)
+- `pumpportal.py`: trending token fetch from pump.fun (**implemented**)
+- `crypto.py`: AES-based message encryption for ShadowNet (**implemented**)
+- `jupiter.py`: Jupiter DEX aggregator integrations (**implemented**)
+- `io.py`: File I/O utilities (**implemented**)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8+
 - Rust & Cargo (for smart contracts)
+- Node.js & cfonts (for CLI banner)
 - Solana CLI tools (optional, for direct blockchain interaction)
 
 ### Installation
@@ -66,17 +72,28 @@ git clone <repository-url>
 cd grimnode
 ```
 
-2. **Install Python dependencies:**
+2. **Create and activate a Python virtual environment:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. **Install Python dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-3. **Start the Shadow Agent (in background):**
+4. **Install cfonts (for banner):**
+```bash
+npm install -g cfonts
+```
+
+5. **Start the Shadow Agent (in background):**
 ```bash
 python3 shadow_agent.py &
 ```
 
-4. **Test the CLI:**
+6. **Test the CLI:**
 ```bash
 python3 cli.py --help
 ```
@@ -111,11 +128,11 @@ It's Axiom meets Parasite AI, but glitchy, meme-powered, and aggressively Solana
 
 ## 🛠 Current Status
 
-- ✅ CLI scan + ShadowNet communication working
-- ⚠️ Meme, bundle, and cast commands in progress
-- ⚙️ Smart contract compiles, needs testing & deployment
+- ✅ CLI `scan`, `bundle`, `grimcast`, and ShadowNet communication working
+- ⚙️ Smart contract compiles, subscriptions and tiers implemented
 - 🔐 Encrypted ZMQ pipeline live
-- 🧪 Bundling logic in early validation phase
+- 🧪 Bundling logic: Python utilities working, Rust executor now implemented and functional, TypeScript zk-SNARK logic present (trusted setup may require a newer snarkjs version)
+- 🧰 Jupiter DEX aggregator integration is implemented
 
 ## 🏗️ Project Structure
 
@@ -125,7 +142,8 @@ grimnode/
 ├── shadow_agent.py        # Local encrypted agent
 ├── requirements.txt       # Python dependencies
 ├── grim_vault/           # Solana smart contract (Anchor)
-├── grim_bundle/          # Rust transaction bundler
+├── grim_bundle/          # Rust transaction bundler (implemented)
+├── grimnode-ts/          # TypeScript zk-SNARK and bundle logic
 ├── bundle/               # Python bundling utilities
 ├── utils/                # Utility modules
 │   ├── crypto.py         # AES encryption
@@ -142,6 +160,8 @@ grimnode/
 ```bash
 # Test CLI commands
 python3 cli.py scan
+python3 cli.py bundle --help
+python3 cli.py grimcast --help
 python3 cli.py send-job "test"
 
 # Test Shadow Agent
@@ -166,6 +186,7 @@ cargo build
 - **ShadowNet keys are hardcoded** - For production, use environment variables
 - **No authentication** on local agent communication - Add proper auth for multi-user setups
 - **Smart contract needs audit** before mainnet deployment
+- **Rust executor is implemented but not yet audited for production**
 
 ## 🤝 Contributing
 

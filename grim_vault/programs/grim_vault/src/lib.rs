@@ -21,9 +21,6 @@ pub mod grim_vault {
 
         // Transfer SOL from user to program (treasury)
         // Transfer SOL from user to program (treasury)
-        if ctx.accounts.grim_vault_program.key() != &ctx.program_id {
-            return Err(ProgramError::InvalidAccountData.into());
-        }
         system_program::transfer(
             CpiContext::new(
                 ctx.accounts.system_program.to_account_info(),

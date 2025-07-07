@@ -5,3 +5,4 @@ pyzmq
 pillow
 base58
 pycryptodome
+tweepy
